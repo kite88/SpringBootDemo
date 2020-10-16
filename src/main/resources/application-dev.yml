@@ -1,0 +1,55 @@
+server:
+  #端口
+  port: 10888
+  tomcat:
+    uri-encoding: UTF-8
+
+project:
+  name: spring_boot_demo
+
+spring:
+  application:
+    name: SpringBootDemo
+  #redis配置
+  redis:
+    database: 1
+    host: 127.0.0.1
+    port: 6379
+    password:
+  datasource:
+    #数据库配置
+    username: root
+    password: root
+    port: 3306
+    address-ip: 127.0.0.1
+    name: ${project.name}
+    url: jdbc:mysql://${spring.datasource.address-ip}:${spring.datasource.port}/${spring.datasource.name}?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 3
+      maximum-pool-size: 100
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: DatebookHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+
+mybatis-plus:
+  type-aliases-package: org.example.*.model.*
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+config:
+  jwt:
+    # 加密密钥
+    secret: 4fj3kd2s2fjf3kd4f
+    #过期时间（毫秒）
+    expire: 604800000
+    header: token
